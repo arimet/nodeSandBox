@@ -1,0 +1,25 @@
+{% include 'squelette.html.twig' %}
+
+{% block contenu %}
+
+<section class="resume-section p-3 p-lg-5 d-flex d-column" id="todoList">
+        <div>
+          <h1 class="mb-0">
+            <span class="text-primary">TodoList</span>
+          </h1>
+			<br>
+			<div>
+				<h3>Que dois-je faire ?</h3>
+				<form action="/todo/add/" method="post">
+					<input type="text" name="newTodo"/>
+				</form>
+			</div>
+			<div class="mt-5">
+			{% for todo in todoList %}
+				<p><a href="/todo/delete/{{loop.index-1}}">✘ </a>{{todo}}</p>
+			{% endfor %}
+			</div>
+        </div>
+      </section>
+
+{% endblock %}

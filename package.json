@@ -1,0 +1,19 @@
+{
+  "name": "nodesite",
+  "version": "1.0.0",
+  "description": "Bac à sable node",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-session": "^2.0.0-beta.3",
+    "express": "^4.16.2",
+    "nodemon": "^1.15.1",
+    "twig": "^1.10.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anthony Rimet",
+  "license": "ISC"
+}

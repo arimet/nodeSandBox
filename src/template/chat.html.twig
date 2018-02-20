@@ -1,0 +1,74 @@
+{% include 'squelette.html.twig' %}
+
+{% block contenu %}
+
+<section class="resume-section p-3 p-lg-5 d-flex d-column" id="chat">
+	<div style="width:100%">
+		<h1 class="mb-0">
+			<span class="text-primary">CHAT</span>
+		</h1>
+		<div id="pseudoBlock" class="mt-5 d-none">
+			<h3>Veuillez rentrez votre pseudo</h3>
+			<input id="pseudo" type="text"/>
+			<input id="btnPseudo" class="btn-outline-secondary" type="submit">
+		</div>
+		<div id="chatBlock" class="mt-5 d-none">
+		<div class="windowChat"></div>
+			<form id="sendMsg">
+				<input name="msg" id="msgChat" placeholder="envoyer un message"/>
+				<input type="submit" class="d-none"/>
+			</form>
+
+		</div>
+	</div>
+</section>
+
+{% endblock %}
+
+{% block javascript %}
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		let pseudo = '';
+		const socket = io.connect('http://localhost:8080');
+		socket.on('user', function(data) {
+			if(data.data == null) {
+				$('#pseudoBlock').removeClass('d-none');
+			}else {
+				pseudo = data.data;
+				$('#chatBlock').removeClass('d-none');
+				console.log(pseudo);
+			}
+		});
+
+		socket.on('newLogin', function(data) {
+			insereMessage(data,'vient de se connecter');
+		})
+
+		socket.on('message',function(data) {
+			insereMessage(data.pseudo,data.msg);
+		})
+
+		$( "#sendMsg" ).submit(function( event ) {
+			let msg = $("#msgChat").val();
+			$("#msgChat").val('');
+			event.preventDefault();
+			insereMessage(pseudo, msg, 'bd5d38');
+			socket.emit('message', {pseudo,msg});
+		});
+
+		$(document).on("click", "#btnPseudo", function(e)  {
+			let pseudoSend = $("#pseudo").val();
+			pseudo = pseudoSend;
+			socket.emit('pseudoUser', pseudoSend);
+			$('#pseudoBlock').addClass('d-none');
+			$('#chatBlock').removeClass('d-none');
+		})
+
+		// Ajoute un message dans la page
+		function insereMessage(pseudo, message, color) {
+			$('.windowChat').prepend('<p><strong style="color:#'+color+'">' + pseudo + '</strong> ' + message + '</p>');
+		}
+
+
+	</script>
+{% endblock %}
