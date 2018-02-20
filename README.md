@@ -6,4 +6,5 @@ Small sandbox site to introduce me to NodeJs
 
 * Chat : same as above. Use of webSocket thanks to Socket.io
 
-To test this code, download the repo. Check `package.json`
+To test this code, download the repo. Check `package.json`,
+use `npm install`and after launch `node app.js`
