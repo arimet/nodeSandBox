@@ -8,3 +8,5 @@ Small sandbox site to introduce me to NodeJs
 
 To test this code, download the repo. Check `package.json`,
 use `npm install`and after launch `node app.js`
+
+Made by following the course : https://openclassrooms.com/courses/des-applications-ultra-rapides-avec-node-js
